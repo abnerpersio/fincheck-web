@@ -1,6 +1,6 @@
-import React from 'react';
+import { ComponentProps } from 'react';
 
-export function Logo(props: React.SVGAttributes<SVGSVGElement>) {
+export function Logo(props: ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 139 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
