@@ -1,34 +1,38 @@
+import { CrossCircledIcon } from '@radix-ui/react-icons';
 import { ComponentProps, forwardRef } from 'react';
-import { classNames } from '../../../shared/utils/class-names';
+import { cn } from '../../../shared/utils/class-names';
 
 type Props = Omit<ComponentProps<'input'>, 'placeholder'> & {
   label: string;
   name: string;
+  error?: string | null;
 };
 
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
-  const { label, name, id, className, ...restProps } = props;
+  const { label, name, id, className, error, ...restProps } = props;
+
   const inputId = id ?? name;
 
   return (
-    <div className={classNames('relative', className)}>
+    <div className={cn('relative', className)}>
       <input
         {...restProps}
         ref={ref}
         id={inputId}
         name={name}
         placeholder=" "
-        className={classNames(
+        className={cn(
           'bg-white text-gray-800 rounded-lg border border-gray-500',
           'px-3 pt-4 h-[52px] w-full',
           'peer placeholder-shown:pt-0',
           'focus:border-gray-800 transition-all',
+          error && '!border-red-900',
         )}
       />
 
       <label
         htmlFor={inputId}
-        className={classNames(
+        className={cn(
           'transition-all absolute left-[13px] pointer-events-none',
           'text-gray-700',
           'text-xs top-2',
@@ -37,6 +41,14 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
       >
         {label}
       </label>
+
+      {error && (
+        <div className="flex gap-2 items-center mt-2 text-red-900">
+          <CrossCircledIcon />
+
+          <span className="text-xs">{error}</span>
+        </div>
+      )}
     </div>
   );
 });

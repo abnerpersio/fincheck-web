@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { classNames } from '../../shared/utils/class-names';
+import { cn } from '../../shared/utils/class-names';
 import AuthIllustration from '../components/icons/auth-illustration';
 import { Logo } from '../components/icons/logo';
 
@@ -7,7 +7,7 @@ export function AuthLayout() {
   return (
     <div className="flex w-full h-full">
       <div
-        className={classNames(
+        className={cn(
           'w-full h-full',
           'lg:w-1/2',
           'flex flex-col items-center justify-center gap-16',
@@ -21,14 +21,10 @@ export function AuthLayout() {
       </div>
 
       <div
-        className={classNames(
-          'hidden',
-          'lg:flex justify-center items-center',
-          'relative w-1/2 h-full p-8',
-        )}
+        className={cn('hidden', 'lg:flex justify-center items-center', 'relative w-1/2 h-full p-8')}
       >
         <AuthIllustration
-          className={classNames(
+          className={cn(
             'object-cover w-full h-full max-w-[656px] max-h-[960px]',
             'rounded-[32px]',
             'select-none pointer-events-none',
@@ -36,7 +32,7 @@ export function AuthLayout() {
         />
 
         <div
-          className={classNames(
+          className={cn(
             'max-w-[656px] mx-8',
             'absolute bottom-8 bg-white p-10 rounded-b-[32px]',
             'flex flex-col items-start gap-6',

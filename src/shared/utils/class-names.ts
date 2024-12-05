@@ -1,22 +1,6 @@
-const getKeysFromObject = (value: Record<string, boolean>) => {
-  try {
-    return Object.entries(value)
-      .filter(([, value]) => Boolean(value))
-      .flatMap(([key]) => key);
-  } catch {
-    return false;
-  }
-};
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-export const classNames = (...classes: (string | Record<string, boolean> | undefined | null)[]) => {
-  return classes
-    .map((value) => {
-      if (value && typeof value === 'object') {
-        return getKeysFromObject(value);
-      }
-
-      return value;
-    })
-    .filter(Boolean)
-    .join(' ');
-};
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

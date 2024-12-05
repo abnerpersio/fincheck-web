@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { classNames } from '../../../shared/utils/class-names';
+import { cn } from '../../../shared/utils/class-names';
 import { LoadingSpinner } from '../icons/loading-spinner';
 
 type Props = ComponentProps<'button'> & {
@@ -13,7 +13,7 @@ export function Button(props: Props) {
     <button
       {...restProps}
       disabled={disabled || loading}
-      className={classNames(
+      className={cn(
         'w-full flex justify-center items-center px-6 h-12 rounded-2xl transition-all',
         'bg-teal-900 text-white font-medium',
         'hover:bg-teal-800 active:bg-teal-900',

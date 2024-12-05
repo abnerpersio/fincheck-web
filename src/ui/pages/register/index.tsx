@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { routes } from '../../../infra/constants/routes';
-import { classNames } from '../../../shared/utils/class-names';
+import { cn } from '../../../shared/utils/class-names';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 
@@ -13,10 +13,7 @@ export function RegisterPage() {
         <p className="space-x-2">
           <span className="text-gray-700 tracking-[-0.5px]">Já possui uma conta?</span>
 
-          <Link
-            className={classNames('font-medium text-teal-900 tracking-[-0.5px]')}
-            to={routes.login}
-          >
+          <Link className={cn('font-medium text-teal-900 tracking-[-0.5px]')} to={routes.login}>
             Fazer login
           </Link>
         </p>
