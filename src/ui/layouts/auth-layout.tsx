@@ -37,7 +37,7 @@ export function AuthLayout() {
 
         <div
           className={classNames(
-            'max-w-[656px]',
+            'max-w-[656px] mx-8',
             'absolute bottom-8 bg-white p-10 rounded-b-[32px]',
             'flex flex-col items-start gap-6',
           )}
