@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { cn } from '../../../shared/utils/class-names';
+import { cn } from '../../../app/utils/class-names';
 import { LoadingSpinner } from '../icons/loading-spinner';
 
 type Props = ComponentProps<'button'> & {

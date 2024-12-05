@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { cn } from '../../shared/utils/class-names';
+import { cn } from '../../app/utils/class-names';
 import AuthIllustration from '../components/icons/auth-illustration';
 import { Logo } from '../components/icons/logo';
 

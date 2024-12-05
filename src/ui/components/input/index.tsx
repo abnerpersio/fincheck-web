@@ -1,6 +1,6 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 import { ComponentProps, forwardRef } from 'react';
-import { cn } from '../../../shared/utils/class-names';
+import { cn } from '../../../app/utils/class-names';
 
 type Props = Omit<ComponentProps<'input'>, 'placeholder'> & {
   label: string;
@@ -14,7 +14,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const inputId = id ?? name;
 
   return (
-    <div className={cn('relative', className)}>
+    <div className="relative">
       <input
         {...restProps}
         ref={ref}
@@ -27,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
           'peer placeholder-shown:pt-0',
           'focus:border-gray-800 transition-all',
           error && '!border-red-900',
+          className,
         )}
       />
 

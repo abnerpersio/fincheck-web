@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { routes } from '../../../infra/constants/routes';
-import { cn } from '../../../shared/utils/class-names';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
+import { useRegisterController } from './hooks/use-register-controller';
 
 export function RegisterPage() {
+  const { register, handleSubmit, errors, isValid } = useRegisterController();
+
   return (
     <>
       <header className="flex flex-col items-center gap-4 text-center">
@@ -13,20 +15,25 @@ export function RegisterPage() {
         <p className="space-x-2">
           <span className="text-gray-700 tracking-[-0.5px]">Já possui uma conta?</span>
 
-          <Link className={cn('font-medium text-teal-900 tracking-[-0.5px]')} to={routes.login}>
+          <Link className="font-medium text-teal-900 tracking-[-0.5px]" to={routes.login}>
             Fazer login
           </Link>
         </p>
       </header>
 
-      <form noValidate className="mt-[60px] flex flex-col gap-4">
-        <Input name="name" label="Nome" />
+      <form noValidate onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
+        <Input label="Nome" error={errors.name?.message} {...register('name')} />
 
-        <Input name="email" label="Email" type="email" />
+        <Input label="Email" type="email" error={errors.email?.message} {...register('email')} />
 
-        <Input name="password" label="Senha" type="password" />
+        <Input
+          label="Senha"
+          type="password"
+          error={errors.password?.message}
+          {...register('password')}
+        />
 
-        <Button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2" disabled={!isValid}>
           Criar conta
         </Button>
       </form>
