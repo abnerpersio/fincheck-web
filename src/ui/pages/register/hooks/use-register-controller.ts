@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useAuth } from '../../../../app/hooks/use-auth';
 import { useSignup } from '../../../../app/hooks/use-signup';
-import { regex } from '../../../../infra/constants/regex';
+import { regex } from '../../../../infra/regex';
 
 const createSchema = () =>
   z.object({
@@ -29,6 +30,7 @@ type FormValues = z.infer<ReturnType<typeof createSchema>>;
 
 export function useRegisterController() {
   const { mutateAsync, isPending } = useSignup();
+  const { signin } = useAuth();
 
   const {
     formState: { errors, isValid },
@@ -41,6 +43,8 @@ export function useRegisterController() {
 
   const handleSubmit = handleFormSubmit(async (formValues) => {
     const { token } = await mutateAsync(formValues);
+
+    signin(token);
   });
 
   return {
