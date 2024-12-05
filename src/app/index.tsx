@@ -1,13 +1,16 @@
 import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './providers/auth';
 import { QueryProvider } from './providers/query';
 import { Router } from './router';
 
 export function App() {
   return (
     <QueryProvider>
-      <Router />
+      <AuthProvider>
+        <Router />
 
-      <Toaster position="bottom-right" />
+        <Toaster position="bottom-right" />
+      </AuthProvider>
     </QueryProvider>
   );
 }
