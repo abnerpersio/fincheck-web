@@ -1,5 +1,5 @@
-import { endpoints } from '../../../infra/api';
-import { HttpService } from '../http-service';
+import { endpoints } from '../../infra/api';
+import { HttpService } from './http-service';
 
 export type SignupPayload = {
   name: string;

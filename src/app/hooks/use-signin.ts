@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { AuthService, SigninPayload, SigninResult } from '../services/auth/auth';
+import { AuthService, SigninPayload, SigninResult } from '../services/auth';
 
 type Options = {
   onSucess?: (data: SigninResult) => void;
