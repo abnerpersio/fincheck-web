@@ -1,18 +1,18 @@
 import { ComponentProps } from 'react';
 import { cn } from '../../../app/utils/class-names';
-import { LoadingSpinner } from '../icons/loading-spinner';
+import { LoadingSpinner } from '../loading-spinner';
 
 type Props = ComponentProps<'button'> & {
-  loading?: boolean;
+  isLoading?: boolean;
 };
 
 export function Button(props: Props) {
-  const { children, className, disabled, loading, ...restProps } = props;
+  const { children, className, disabled, isLoading, ...restProps } = props;
 
   return (
     <button
       {...restProps}
-      disabled={disabled || loading}
+      disabled={disabled || isLoading}
       className={cn(
         'w-full flex justify-center items-center px-6 h-12 rounded-2xl transition-all',
         'bg-teal-900 text-white font-medium',
@@ -21,9 +21,9 @@ export function Button(props: Props) {
         className,
       )}
     >
-      {loading && <LoadingSpinner />}
+      {isLoading && <LoadingSpinner className="w-6 h-6" />}
 
-      {!loading && children}
+      {!isLoading && children}
     </button>
   );
 }
