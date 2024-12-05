@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { routes } from '../../../infra/constants/routes';
+import { routes } from '../../../infra/routes';
 import { useAuth } from '../../hooks/use-auth';
 
 type Props = {

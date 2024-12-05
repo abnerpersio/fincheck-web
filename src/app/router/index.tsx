@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { routes } from '../../infra/constants/routes';
+import { routes } from '../../infra/routes';
 import { AuthLayout } from '../../ui/layouts/auth-layout';
 import { DashboardPage } from '../../ui/pages/dashboard';
 import { LoginPage } from '../../ui/pages/login';
