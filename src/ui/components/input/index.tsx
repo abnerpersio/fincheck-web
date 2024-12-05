@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, forwardRef } from 'react';
 import { classNames } from '../../../shared/utils/class-names';
 
 type Props = Omit<ComponentProps<'input'>, 'placeholder'> & {
@@ -6,7 +6,7 @@ type Props = Omit<ComponentProps<'input'>, 'placeholder'> & {
   name: string;
 };
 
-export function Input(props: Props) {
+export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const { label, name, id, className, ...restProps } = props;
   const inputId = id ?? name;
 
@@ -14,6 +14,7 @@ export function Input(props: Props) {
     <div className={classNames('relative', className)}>
       <input
         {...restProps}
+        ref={ref}
         id={inputId}
         name={name}
         placeholder=" "
@@ -38,4 +39,4 @@ export function Input(props: Props) {
       </label>
     </div>
   );
-}
+});
