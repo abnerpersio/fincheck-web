@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useAuth } from '../../../../app/hooks/use-auth';
 import { useSignin } from '../../../../app/hooks/use-signin';
 
 const createSchema = () =>
@@ -18,6 +19,7 @@ type FormValues = z.infer<ReturnType<typeof createSchema>>;
 
 export function useLoginController() {
   const { mutateAsync, isPending } = useSignin();
+  const { signin } = useAuth();
 
   const {
     formState: { errors, isValid },
@@ -30,6 +32,8 @@ export function useLoginController() {
 
   const handleSubmit = handleFormSubmit(async (formValues) => {
     const { token } = await mutateAsync(formValues);
+
+    signin(token);
   });
 
   return {
