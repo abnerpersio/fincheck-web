@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../../../infra/routes';
+import { routes } from '../../../infra/constants/routes';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { useLoginController } from './hooks/use-login-controller';
