@@ -5,7 +5,7 @@ import { Input } from '../../components/input';
 import { useLoginController } from './hooks/use-login-controller';
 
 export function LoginPage() {
-  const { register, handleSubmit, isValid, errors } = useLoginController();
+  const { register, handleSubmit, isValid, errors, isLoading } = useLoginController();
 
   return (
     <>
@@ -31,7 +31,7 @@ export function LoginPage() {
           {...register('password')}
         />
 
-        <Button type="submit" className="mt-2" disabled={!isValid}>
+        <Button type="submit" className="mt-2" disabled={!isValid} isLoading={isLoading}>
           Entrar
         </Button>
       </form>
