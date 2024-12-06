@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { env } from '../../infra/env';
+import { localStorageKeys } from '../../infra/local-storage';
 
 type Params = {
   baseURL?: string;
@@ -11,6 +12,16 @@ export abstract class HttpService {
   constructor(params?: Params) {
     this.axios = axios.create({
       baseURL: params?.baseURL || env.apiBaseURL,
+    });
+
+    this.axios.interceptors.request.use((config) => {
+      const accessToken = localStorage.getItem(localStorageKeys.accessToken);
+
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+
+      return config;
     });
   }
 

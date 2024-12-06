@@ -9,10 +9,7 @@ export function LoadingSpinner(props: Props) {
 
   return (
     <svg
-      className={cn(
-        'w-7 h-7 text-gray-300 animate-spin dark:text-gray-600 fill-teal-900',
-        className,
-      )}
+      className={cn('w-7 h-7 text-gray-300 fill-teal-900 animate-spin', className)}
       viewBox="0 0 100 101"
       fill="none"
       aria-hidden="true"
