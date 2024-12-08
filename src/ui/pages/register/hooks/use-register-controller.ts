@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { regex } from '../../../../app/constants/regex';
 import { useAuth } from '../../../../app/hooks/use-auth';
 import { useSignup } from '../../../../app/hooks/use-signup';
-import { regex } from '../../../../infra/regex';
 
 const createSchema = () =>
   z.object({
