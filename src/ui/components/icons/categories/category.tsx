@@ -10,10 +10,10 @@ import { TravelCategoryIcon } from './expense/travel';
 import { IncomeCategoryIcon } from './income/income';
 
 const iconsMap = {
-  income: {
+  INCOME: {
     default: IncomeCategoryIcon,
   },
-  expense: {
+  EXPENSE: {
     default: ExpenseCategoryIcon,
     food: FoodCategoryIcon,
     fun: FunCategoryIcon,
@@ -26,16 +26,21 @@ const iconsMap = {
   },
 };
 
-type Props = {
-  type: 'income' | 'expense';
-  category?: keyof (typeof iconsMap.expense & typeof iconsMap.income);
-};
+type Props =
+  | {
+      type: 'INCOME';
+      category?: keyof typeof iconsMap.INCOME;
+    }
+  | {
+      type: 'EXPENSE';
+      category?: keyof typeof iconsMap.EXPENSE;
+    };
 
 export function CategoryIcon(props: Props) {
   const { type, category } = props;
 
   const categoryName =
-    (category as keyof (typeof iconsMap.expense | typeof iconsMap.income)) ?? 'default';
+    (category as keyof (typeof iconsMap.EXPENSE | typeof iconsMap.INCOME)) ?? 'default';
 
   const Icon = iconsMap[type][categoryName] ?? iconsMap[type].default;
 

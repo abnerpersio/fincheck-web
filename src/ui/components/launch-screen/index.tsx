@@ -21,7 +21,10 @@ export function LaunchScreen(props: Props) {
       leaveTo="opacity-0"
     >
       <div
-        className={cn('fixed top-0 left-0 w-full h-full bg-teal-900', 'grid place-items-center')}
+        className={cn(
+          'fixed top-0 left-0 w-full h-full bg-teal-900 z-50',
+          'grid place-items-center',
+        )}
       >
         <div className="flex flex-col items-center gap-4">
           <Logo className="h-10 text-white" />
