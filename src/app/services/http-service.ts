@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { env } from '../../infra/env';
-import { localStorageKeys } from '../../infra/local-storage';
+import { localStorageKeys } from '../constants/local-storage';
 
 type Params = {
   baseURL?: string;

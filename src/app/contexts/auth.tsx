@@ -1,9 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { localStorageKeys } from '../../infra/local-storage';
 import { LaunchScreen } from '../../ui/components/launch-screen';
-import { AuthContext } from '../contexts/auth';
+import { localStorageKeys } from '../constants/local-storage';
 import { useUserDetails } from '../hooks/use-user-details';
+
+type ContextValue = {
+  signedIn: boolean;
+  signin: (token: string) => void;
+  signout: () => void;
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const AuthContext = createContext<ContextValue>({} as ContextValue);
 
 type Props = {
   children: React.ReactNode;

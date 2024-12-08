@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider } from './providers/auth';
+import { AuthProvider } from './contexts/auth';
 import { QueryProvider } from './providers/query';
 import { Router } from './router';
 
