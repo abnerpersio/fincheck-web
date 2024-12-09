@@ -5,10 +5,11 @@ import { cn } from '../../../../../app/utils/class-names';
 type Props = {
   isBeginning: boolean;
   isEnd: boolean;
+  disabled?: boolean;
 };
 
 export function SliderNavigation(props: Props) {
-  const { isBeginning, isEnd } = props;
+  const { isBeginning, isEnd, disabled } = props;
 
   const swiper = useSwiper();
 
@@ -23,7 +24,7 @@ export function SliderNavigation(props: Props) {
           'flex items-center justify-center z-10',
         )}
         onClick={() => swiper.slidePrev()}
-        disabled={isBeginning}
+        disabled={isBeginning || disabled}
       >
         <ChevronLeftIcon className="w-6 h-6 " />
       </button>
@@ -37,7 +38,7 @@ export function SliderNavigation(props: Props) {
           'flex items-center justify-center z-10',
         )}
         onClick={() => swiper.slideNext()}
-        disabled={isEnd}
+        disabled={isEnd || disabled}
       >
         <ChevronRightIcon className="w-6 h-6" />
       </button>
