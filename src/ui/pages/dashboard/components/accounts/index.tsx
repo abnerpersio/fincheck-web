@@ -90,17 +90,16 @@ export function Accounts() {
                     <SliderNavigation isBeginning={isBeginning} isEnd={isEnd} />
                   </div>
 
-                  <SwiperSlide>
-                    <AccountCard color="#7950F2" name="Nubank" balance={100.23} type="CHECKING" />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <AccountCard color="#f89943" name="Inter" balance={2000.99} type="CHECKING" />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <AccountCard color="#000" name="XP" balance={10000.23} type="INVESTMENT" />
-                  </SwiperSlide>
+                  {accounts.map((account) => (
+                    <SwiperSlide>
+                      <AccountCard
+                        color={account.color}
+                        name={account.name}
+                        balance={account.balance}
+                        type={account.type}
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             )}

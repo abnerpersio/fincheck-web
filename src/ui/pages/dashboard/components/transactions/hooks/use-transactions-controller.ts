@@ -1,6 +1,35 @@
 export function useTransactionsController() {
   return {
-    transactions: [],
+    transactions: [
+      {
+        id: 'random-uuid-1',
+        description: 'Almoço',
+        type: 'EXPENSE' as const,
+        date: '2023-09-07T00:00:00.000Z',
+        value: -100.99,
+      },
+      {
+        id: 'random-uuid-2',
+        description: 'Uber',
+        type: 'EXPENSE' as const,
+        date: '2023-09-07T00:00:00.000Z',
+        value: -50.99,
+      },
+      {
+        id: 'random-uuid-3',
+        description: 'Salário',
+        type: 'INCOME' as const,
+        date: '2023-09-07T00:00:00.000Z',
+        value: 200,
+      },
+      {
+        id: 'random-uuid-4',
+        description: 'Freela',
+        type: 'INCOME' as const,
+        date: '2023-09-07T00:00:00.000Z',
+        value: 500,
+      },
+    ],
     isLoading: false,
   };
 }

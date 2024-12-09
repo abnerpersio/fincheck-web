@@ -26,15 +26,10 @@ const iconsMap = {
   },
 };
 
-type Props =
-  | {
-      type: 'INCOME';
-      category?: keyof typeof iconsMap.INCOME;
-    }
-  | {
-      type: 'EXPENSE';
-      category?: keyof typeof iconsMap.EXPENSE;
-    };
+type Props = {
+  type: 'INCOME' | 'EXPENSE';
+  category?: keyof typeof iconsMap.INCOME | keyof typeof iconsMap.EXPENSE;
+};
 
 export function CategoryIcon(props: Props) {
   const { type, category } = props;

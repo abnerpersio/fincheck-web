@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { MONTHS } from '../../../../../app/constants/constants';
 import { cn } from '../../../../../app/utils/class-names';
 import { formatCurrency } from '../../../../../app/utils/currency';
+import { formatDate } from '../../../../../app/utils/date';
 import { CategoryIcon } from '../../../../components/icons/categories/category';
 import { EmptyStateIllustration } from '../../../../components/icons/empty-state';
 import { FilterIcon } from '../../../../components/icons/filter';
@@ -82,17 +83,19 @@ export function Transactions() {
 
       {!isLoading && hasTransactions && (
         <div className="flex-1 mt-4 space-y-2 overflow-y-auto">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {transactions.map((transaction) => (
             <div
-              key={index}
+              key={transaction.id}
               className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
             >
               <div className="flex-1 flex items-center gap-3">
-                <CategoryIcon type="EXPENSE" />
+                <CategoryIcon type={transaction.type} />
 
                 <div>
-                  <strong className="block font-bold tracking-[-0.5px]">Almoço</strong>
-                  <span className="text-sm text-gray-600">07/09/2023</span>
+                  <strong className="block font-bold tracking-[-0.5px]">
+                    {transaction.description}
+                  </strong>
+                  <span className="text-sm text-gray-600">{formatDate(transaction.date)}</span>
                 </div>
               </div>
 
@@ -103,7 +106,7 @@ export function Transactions() {
                   !isCurrencyVisible && 'blur-sm',
                 )}
               >
-                - {formatCurrency(100.99)}
+                {formatCurrency(transaction.value)}
               </span>
             </div>
           ))}
