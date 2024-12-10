@@ -14,7 +14,7 @@ import { SliderNavigation } from './slider-navigation';
 
 export function Accounts() {
   const { isBeginning, isEnd, onSwipe } = useAccountsSlider();
-  const { isCurrencyVisible, onToggleCurrencyVisibility } = useDashboard();
+  const { isCurrencyVisible, onToggleCurrencyVisibility, onOpenNewAccountModal } = useDashboard();
   const { accounts, isLoading } = useAccountsController();
 
   const isMedium = useMediaQuery(500);
@@ -60,6 +60,7 @@ export function Accounts() {
                     'mt-4 h-52 w-full border-2 border-dashed border-teal-600 rounded-2xl text-white',
                     'flex flex-col items-center justify-center gap-4',
                   )}
+                  onClick={onOpenNewAccountModal}
                 >
                   <div
                     className={cn(
@@ -91,7 +92,7 @@ export function Accounts() {
                   </div>
 
                   {accounts.map((account) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={account.id}>
                       <AccountCard
                         color={account.color}
                         name={account.name}

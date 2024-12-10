@@ -1,6 +1,8 @@
 import { Logo } from '../../components/icons/logo';
 import { UserProfileMenu } from '../../components/user-profile-menu';
 import { Accounts } from './components/accounts';
+import { Fab } from './components/fab';
+import { NewAccountModal } from './components/new-account-modal';
 import { Transactions } from './components/transactions';
 import { DashboardProvider } from './contexts/dashboard';
 
@@ -23,6 +25,10 @@ export function DashboardPage() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
+
+        <NewAccountModal />
       </div>
     </DashboardProvider>
   );

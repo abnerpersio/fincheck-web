@@ -1,4 +1,16 @@
+import { useState } from 'react';
+
 export function useTransactionsController() {
+  const [isFiltersModalVisible, setIsFiltersModalVisible] = useState(false);
+
+  const handleOpenFiltersModal = () => {
+    setIsFiltersModalVisible(true);
+  };
+
+  const handleCloseFiltersModal = () => {
+    setIsFiltersModalVisible(false);
+  };
+
   return {
     transactions: [
       {
@@ -31,5 +43,8 @@ export function useTransactionsController() {
       },
     ],
     isLoading: false,
+    isFiltersModalVisible,
+    onOpenFiltersModal: handleOpenFiltersModal,
+    onCloseFiltersModal: handleCloseFiltersModal,
   };
 }

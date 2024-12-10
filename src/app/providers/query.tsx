@@ -21,7 +21,7 @@ export function QueryProvider(props: Props) {
     <QueryClientProvider client={queryClient}>
       {children}
 
-      <ReactQueryDevtools position="right" buttonPosition="bottom-right" />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 }

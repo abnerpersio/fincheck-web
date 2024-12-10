@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MONTHS } from '../../../../../app/constants/constants';
 import { cn } from '../../../../../app/utils/class-names';
@@ -7,40 +6,43 @@ import { formatDate } from '../../../../../app/utils/date';
 import { CategoryIcon } from '../../../../components/icons/categories/category';
 import { EmptyStateIllustration } from '../../../../components/icons/empty-state';
 import { FilterIcon } from '../../../../components/icons/filter';
-import { TransactionsIcon } from '../../../../components/icons/transactions';
 import { LoadingSpinner } from '../../../../components/loading-spinner';
 import { useDashboard } from '../../hooks/use-dashboard';
+import { FiltersModal } from './filters-modal';
 import { useTransactionsController } from './hooks/use-transactions-controller';
 import { useTransactionsFiltersSlider } from './hooks/use-transactions-filters-slider';
 import { SliderNavigation } from './slider-navigation';
 import { SliderOption } from './slider-option';
+import { TransactionTypeDropdown } from './transaction-type-dropdown';
 
 export function Transactions() {
   const { isCurrencyVisible } = useDashboard();
-  const { transactions, isLoading } = useTransactionsController();
   const { isBeginning, isEnd, onSwipe } = useTransactionsFiltersSlider();
+
+  const {
+    isFiltersModalVisible,
+    onOpenFiltersModal,
+    onCloseFiltersModal,
+    transactions,
+    isLoading,
+  } = useTransactionsController();
 
   const hasTransactions = !!transactions.length;
 
   return (
     <div className={cn('bg-gray-100 rounded-2xl w-full h-full flex flex-col', 'px-4 py-8 md:p-10')}>
+      <FiltersModal visible={isFiltersModalVisible} onClose={onCloseFiltersModal} />
+
       <header className="w-full">
         <div className="w-full flex items-center justify-between gap-4">
+          <TransactionTypeDropdown disabled={isLoading} />
+
           <button
+            type="button"
+            onClick={onOpenFiltersModal}
             disabled={isLoading}
-            className={cn(
-              'enabled:cursor-pointer flex items-center gap-2 text-gray-900',
-              'disabled:opacity-40',
-            )}
+            className="disabled:opacity-40 enabled:cursor-pointer"
           >
-            <TransactionsIcon />
-
-            <span className="text-gray-800 tracking-[-0.5px] font-medium">Transações</span>
-
-            <ChevronDownIcon />
-          </button>
-
-          <button disabled={isLoading} className="disabled:opacity-40 enabled:cursor-pointer">
             <FilterIcon />
           </button>
         </div>
