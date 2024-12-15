@@ -1,5 +1,6 @@
 import { BankAccountTypes } from '../../../../../app/types/bank-account';
 import { TransactionTypes } from '../../../../../app/types/transaction';
+import { Button } from '../../../../components/button';
 import { CurrencyInput } from '../../../../components/currency-input';
 import { DatePickerInput } from '../../../../components/date-picker-input';
 import { Input } from '../../../../components/input';
@@ -19,20 +20,10 @@ export function NewTransactionModal() {
       visible={isNewTransactionModalVisible}
       onClose={onCloseNewTransactionModal}
     >
-      <form className="space-y-10">
-        <div>
-          <span className="text-gray-600 tracking-[-0.5px] text-xs">
-            Valor {isExpense ? 'da despesa' : 'da receita'}
-          </span>
+      <form>
+        <CurrencyInput label={`Valor ${isExpense ? 'da despesa' : 'da receita'}`} />
 
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
-
-            <CurrencyInput />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-10">
           <Input
             type="text"
             name="name"
@@ -77,6 +68,10 @@ export function NewTransactionModal() {
 
           <DatePickerInput label="Data" />
         </div>
+
+        <Button type="submit" className="mt-6">
+          Criar
+        </Button>
       </form>
     </Modal>
   );

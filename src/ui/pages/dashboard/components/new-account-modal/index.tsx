@@ -1,4 +1,6 @@
+import { Controller } from 'react-hook-form';
 import { BankAccountTypes } from '../../../../../app/types/bank-account';
+import { Button } from '../../../../components/button';
 import { ColorsInput } from '../../../../components/colors-input';
 import { CurrencyInput } from '../../../../components/currency-input';
 import { Input } from '../../../../components/input';
@@ -7,44 +9,87 @@ import { Select } from '../../../../components/select';
 import { useNewAccountModalController } from './hooks/use-new-account-modal-controller';
 
 export function NewAccountModal() {
-  const { isNewAccountModalVisible, onCloseNewAccountModal } = useNewAccountModalController();
+  const {
+    isNewAccountModalVisible,
+    onCloseNewAccountModal,
+    errors,
+    handleSubmit,
+    isPending,
+    isValid,
+    register,
+    control,
+  } = useNewAccountModalController();
 
   return (
     <Modal title="Nova Conta" visible={isNewAccountModalVisible} onClose={onCloseNewAccountModal}>
-      <form className="space-y-10">
-        <div>
-          <span className="text-gray-600 tracking-[-0.5px] text-xs">Saldo</span>
+      <form onSubmit={handleSubmit}>
+        <Controller
+          control={control}
+          name="initialBalance"
+          defaultValue={0}
+          render={({ field: { value, onChange } }) => (
+            <CurrencyInput
+              label="Saldo inicial"
+              value={value}
+              onChange={onChange}
+              error={errors.initialBalance?.message}
+            />
+          )}
+        />
 
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
-
-            <CurrencyInput />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Input type="text" name="name" label="Nome da conta" />
-
-          <Select
-            label="Tipo"
-            options={[
-              {
-                value: BankAccountTypes.CHECKING,
-                label: 'Conta Corrente',
-              },
-              {
-                value: BankAccountTypes.INVESTMENT,
-                label: 'Investimentos',
-              },
-              {
-                value: BankAccountTypes.CASH,
-                label: 'Dinheiro Físico',
-              },
-            ]}
+        <div className="flex flex-col gap-4 mt-10">
+          <Input
+            type="text"
+            label="Nome da conta"
+            error={errors.name?.message}
+            {...register('name')}
           />
 
-          <ColorsInput label="Cor" />
+          <Controller
+            control={control}
+            name="type"
+            defaultValue={BankAccountTypes.CHECKING}
+            render={({ field: { value, onChange } }) => (
+              <Select
+                label="Tipo"
+                value={value}
+                onChange={onChange}
+                options={[
+                  {
+                    value: BankAccountTypes.CHECKING,
+                    label: 'Conta Corrente',
+                  },
+                  {
+                    value: BankAccountTypes.INVESTMENT,
+                    label: 'Investimentos',
+                  },
+                  {
+                    value: BankAccountTypes.CASH,
+                    label: 'Dinheiro Físico',
+                  },
+                ]}
+                error={errors.type?.message}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="color"
+            render={({ field: { value, onChange } }) => (
+              <ColorsInput
+                label="Cor"
+                value={value}
+                onChange={onChange}
+                error={errors.color?.message}
+              />
+            )}
+          />
         </div>
+
+        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isPending}>
+          Criar
+        </Button>
       </form>
     </Modal>
   );

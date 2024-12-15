@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { AuthService, SigninPayload, SigninResult } from '../services/auth';
 
 type Options = {
-  onSucess?: (data: SigninResult) => void;
+  onSuccess?: (data: SigninResult) => void;
 };
 
 export function useSignin(options?: Options) {
@@ -11,7 +11,7 @@ export function useSignin(options?: Options) {
     mutationKey: ['auth', 'signin'],
     mutationFn: (payload: SigninPayload) =>
       new AuthService().sigin(payload).then((result) => result?.data),
-    onSuccess: (data) => options?.onSucess?.(data),
+    onSuccess: (data) => options?.onSuccess?.(data),
     onError: () => toast.error('Credenciais inválidas!'),
   });
 }

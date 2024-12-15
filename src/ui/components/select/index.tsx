@@ -1,6 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import * as RdxSelect from '@radix-ui/react-select';
-import { forwardRef, useState } from 'react';
 import { cn } from '../../../app/utils/class-names';
 
 type Props = {
@@ -11,15 +10,15 @@ type Props = {
     value: string;
     label: string;
   }[];
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
-export const Select = forwardRef<unknown, Props>((props, ref) => {
-  const { options, className, label, error } = props;
-
-  const [selectedValue, setSelectedValue] = useState('');
+export function Select(props: Props) {
+  const { options, value, onChange, className, label, error } = props;
 
   const handleSelect = (value: string) => {
-    setSelectedValue(value);
+    onChange?.(value);
   };
 
   return (
@@ -30,13 +29,13 @@ export const Select = forwardRef<unknown, Props>((props, ref) => {
             'absolute top-1/2 -translate-y-1/2 left-3',
             'z-10 transition-all pointer-events-none',
             'text-gray-700',
-            selectedValue && 'text-xs left-[13px] top-2 translate-y-0',
+            !!value && 'text-xs left-[13px] top-2 translate-y-0',
           )}
         >
           {label}
         </label>
 
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root value={value} onValueChange={handleSelect}>
           <RdxSelect.Trigger
             className={cn(
               'bg-white text-gray-800 rounded-lg border border-gray-500',
@@ -75,8 +74,8 @@ export const Select = forwardRef<unknown, Props>((props, ref) => {
                   <RdxSelect.Item
                     className={cn(
                       'p-2 text-gray-800 text-sm',
-                      'data-[state=checked]:font-bold data-[highlighted]:bg-gray-50 rounded-lg',
-                      'transition-colors',
+                      'data-[state=checked]:font-bold data-[highlighted]:bg-gray-50 hover:bg-gray-50 rounded-lg',
+                      'transition-colors cursor-pointer',
                     )}
                     key={option.value}
                     value={option.value}
@@ -108,4 +107,4 @@ export const Select = forwardRef<unknown, Props>((props, ref) => {
       )}
     </div>
   );
-});
+}

@@ -1,5 +1,5 @@
 import { ChevronDownIcon, CrossCircledIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Color, COLORS } from '../../../app/constants/colors';
 import { cn } from '../../../app/utils/class-names';
 import { DropdownMenu } from '../dropdown-menu';
@@ -9,15 +9,23 @@ type Props = {
   className?: string;
   error?: string;
   label?: string;
+  value?: string | null;
+  onChange?: (color: string) => void;
 };
 
 export function ColorsInput(props: Props) {
-  const { className, error, label } = props;
+  const { className, value, onChange, error, label } = props;
 
-  const [selectedColor, setSelectedColor] = useState<Color | null>(null);
+  const selectedColor = useMemo(() => {
+    if (!value) {
+      return null;
+    }
+
+    return COLORS.find((color) => color.main === value) ?? null;
+  }, [value]);
 
   const handleSelect = (color: Color) => {
-    setSelectedColor(color);
+    onChange?.(color.main);
   };
 
   return (

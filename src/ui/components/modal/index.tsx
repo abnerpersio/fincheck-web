@@ -16,7 +16,7 @@ export function Modal(props: Props) {
   const { visible, children, title, rightAction, contentClassName, onClose } = props;
 
   return (
-    <RdxDialog.Root open={visible}>
+    <RdxDialog.Root open={visible} onOpenChange={onClose}>
       <RdxDialog.Portal>
         <RdxDialog.Overlay
           className={cn(
