@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { BankAccountService, CreateBankAccountPayload } from '../services/bank-account';
+import { BankAccountsService, CreateBankAccountPayload } from '../services/bank-accounts';
 
 type Options = {
   onSuccess?: () => void;
@@ -9,7 +9,7 @@ type Options = {
 export function useCreateBankAccount(options?: Options) {
   return useMutation({
     mutationKey: ['bank-account', 'create'],
-    mutationFn: (payload: CreateBankAccountPayload) => new BankAccountService().create(payload),
+    mutationFn: (payload: CreateBankAccountPayload) => new BankAccountsService().create(payload),
     onSuccess: () => {
       toast.success('Conta criada com sucesso!');
       console.log('options', options);

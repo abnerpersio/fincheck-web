@@ -6,7 +6,7 @@ type Params = {
   baseURL?: string;
 };
 
-export abstract class HttpService {
+export class HttpService {
   private readonly axios: AxiosInstance;
 
   constructor(params?: Params) {
@@ -25,11 +25,11 @@ export abstract class HttpService {
     });
   }
 
-  protected get<T = Record<string, unknown>>(url: string, config?: AxiosRequestConfig) {
+  get<T = Record<string, unknown>>(url: string, config?: AxiosRequestConfig) {
     return this.axios.get<T>(url, config);
   }
 
-  protected post<T = Record<string, unknown>>(
+  post<T = Record<string, unknown>>(
     url: string,
     data?: Record<string, unknown>,
     config?: AxiosRequestConfig,
@@ -37,11 +37,11 @@ export abstract class HttpService {
     return this.axios.post<T>(url, data, config);
   }
 
-  protected delete(url: string, config?: AxiosRequestConfig) {
+  delete(url: string, config?: AxiosRequestConfig) {
     return this.axios.delete(url, config);
   }
 
-  protected patch<T = Record<string, unknown>>(
+  patch<T = Record<string, unknown>>(
     url: string,
     data?: Record<string, unknown>,
     config?: AxiosRequestConfig,

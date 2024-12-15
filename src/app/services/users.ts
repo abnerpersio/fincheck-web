@@ -6,8 +6,14 @@ export type GetMeResult = {
   email: string;
 };
 
-export class UsersService extends HttpService {
+export class UsersService {
+  private readonly httpService: HttpService;
+
+  constructor() {
+    this.httpService = new HttpService();
+  }
+
   getMeDetails() {
-    return this.get<GetMeResult>(endpoints.me);
+    return this.httpService.get<GetMeResult>(endpoints.me);
   }
 }

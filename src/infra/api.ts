@@ -3,6 +3,7 @@ export const endpoints = {
   signup: '/auth/signup',
   me: '/users/me',
   bankAccount: {
+    list: '/bank-accounts',
     create: '/bank-accounts',
   },
 };

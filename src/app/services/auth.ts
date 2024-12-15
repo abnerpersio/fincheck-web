@@ -20,12 +20,18 @@ export type SigninResult = {
   token: string;
 };
 
-export class AuthService extends HttpService {
+export class AuthService {
+  private readonly httpService: HttpService;
+
+  constructor() {
+    this.httpService = new HttpService();
+  }
+
   signup(payload: SignupPayload) {
-    return this.post<SignupResult>(endpoints.signup, payload);
+    return this.httpService.post<SignupResult>(endpoints.signup, payload);
   }
 
   sigin(payload: SigninPayload) {
-    return this.post<SigninResult>(endpoints.signin, payload);
+    return this.httpService.post<SigninResult>(endpoints.signin, payload);
   }
 }

@@ -96,7 +96,7 @@ export function Accounts() {
                       <AccountCard
                         color={account.color}
                         name={account.name}
-                        balance={account.balance}
+                        balance={account.currentBalance}
                         type={account.type}
                       />
                     </SwiperSlide>
