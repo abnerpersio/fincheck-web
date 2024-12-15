@@ -3,6 +3,7 @@ import { UserProfileMenu } from '../../components/user-profile-menu';
 import { Accounts } from './components/accounts';
 import { Fab } from './components/fab';
 import { NewAccountModal } from './components/new-account-modal';
+import { NewTransactionModal } from './components/new-transaction-modal';
 import { Transactions } from './components/transactions';
 import { DashboardProvider } from './contexts/dashboard';
 
@@ -29,6 +30,8 @@ export function DashboardPage() {
         <Fab />
 
         <NewAccountModal />
+
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
   );

@@ -1,3 +1,4 @@
+import { TransactionType } from '../../../../app/types/transaction';
 import { ClothesCategoryIcon } from './expense/clothes';
 import { EducationCategoryIcon } from './expense/education';
 import { ExpenseCategoryIcon } from './expense/expense';
@@ -27,7 +28,7 @@ const iconsMap = {
 };
 
 type Props = {
-  type: 'INCOME' | 'EXPENSE';
+  type: TransactionType;
   category?: keyof typeof iconsMap.INCOME | keyof typeof iconsMap.EXPENSE;
 };
 

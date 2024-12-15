@@ -8,3 +8,13 @@ export function formatCurrency(value: number | undefined | null) {
     currency: 'BRL',
   }).format(value);
 }
+
+export function currencyToNumber(value: string | number) {
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  const sanitizedString = value.replace(/\./g, '').replace(',', '.');
+
+  return Number(sanitizedString);
+}

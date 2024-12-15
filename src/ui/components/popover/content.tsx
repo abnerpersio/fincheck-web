@@ -1,4 +1,4 @@
-import * as RdxDropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as RdxPopover from '@radix-ui/react-popover';
 import { cn } from '../../../app/utils/class-names';
 
 type Props = {
@@ -8,16 +8,16 @@ type Props = {
   align?: 'start' | 'center' | 'end';
 };
 
-export function DropdownMenuContent(props: Props) {
+export function PopoverContent(props: Props) {
   const { children, className, side = 'bottom', align = 'center' } = props;
 
   return (
-    <RdxDropdownMenu.Portal>
-      <RdxDropdownMenu.Content
+    <RdxPopover.Portal>
+      <RdxPopover.Content
         side={side}
         align={align}
         className={cn(
-          'rounded-2xl p-2 bg-white z-[99]',
+          'rounded-2xl p-4 bg-white z-[99]',
           'shadow-[0px_11px_20px_0px_rgba(0,0,0,0.18)]',
           'data-[side=bottom]:animate-slide-up-and-fade',
           'data-[side=top]:animate-slide-down-and-fade',
@@ -25,7 +25,7 @@ export function DropdownMenuContent(props: Props) {
         )}
       >
         {children}
-      </RdxDropdownMenu.Content>
-    </RdxDropdownMenu.Portal>
+      </RdxPopover.Content>
+    </RdxPopover.Portal>
   );
 }

@@ -34,9 +34,8 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
       <label
         htmlFor={inputId}
         className={cn(
-          'transition-all absolute left-[13px] pointer-events-none',
-          'text-gray-700',
-          'text-xs top-2',
+          'transition-all absolute left-[13px] top-2 pointer-events-none',
+          'text-gray-700 text-xs',
           'peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base',
         )}
       >

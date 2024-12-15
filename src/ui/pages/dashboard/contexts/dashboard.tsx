@@ -1,4 +1,5 @@
 import { createContext, useCallback, useState } from 'react';
+import { TransactionType } from '../../../../app/types/transaction';
 
 type ContextValue = {
   isCurrencyVisible: boolean;
@@ -6,6 +7,10 @@ type ContextValue = {
   isNewAccountModalVisible: boolean;
   onOpenNewAccountModal: () => void;
   onCloseNewAccountModal: () => void;
+  isNewTransactionModalVisible: boolean;
+  onOpenNewTransactionModal: (type: TransactionType) => void;
+  onCloseNewTransactionModal: () => void;
+  newTransactionType: TransactionType | null;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -19,7 +24,11 @@ export function DashboardProvider(props: Props) {
   const { children } = props;
 
   const [isCurrencyVisible, setIsCurrencyVisible] = useState(true);
+
   const [isNewAccountModalVisible, setIsNewAccountModalVisible] = useState(false);
+
+  const [isNewTransactionModalVisible, setIsNewTransactionModalVisible] = useState(false);
+  const [newTransactionType, setNewTransactionType] = useState<TransactionType | null>(null);
 
   const handleToggleCurrencyVisibility = useCallback(() => {
     setIsCurrencyVisible((prevState) => !prevState);
@@ -33,6 +42,16 @@ export function DashboardProvider(props: Props) {
     setIsNewAccountModalVisible(false);
   }, []);
 
+  const handleOpenNewTransactionModal = useCallback((type: TransactionType) => {
+    setIsNewTransactionModalVisible(true);
+    setNewTransactionType(type);
+  }, []);
+
+  const handleCloseNewTransactionModal = useCallback(() => {
+    setIsNewTransactionModalVisible(false);
+    setNewTransactionType(null);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -41,6 +60,10 @@ export function DashboardProvider(props: Props) {
         isNewAccountModalVisible,
         onOpenNewAccountModal: handleOpenNewAccountModal,
         onCloseNewAccountModal: handleCloseNewAccountModal,
+        isNewTransactionModalVisible,
+        newTransactionType,
+        onOpenNewTransactionModal: handleOpenNewTransactionModal,
+        onCloseNewTransactionModal: handleCloseNewTransactionModal,
       }}
     >
       {children}

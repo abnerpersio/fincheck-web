@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TransactionTypes } from '../../../../../../app/types/transaction';
 
 export function useTransactionsController() {
   const [isFiltersModalVisible, setIsFiltersModalVisible] = useState(false);
@@ -30,14 +31,14 @@ export function useTransactionsController() {
       {
         id: 'random-uuid-3',
         description: 'Salário',
-        type: 'INCOME' as const,
+        type: TransactionTypes.INCOME,
         date: '2023-09-07T00:00:00.000Z',
         value: 200,
       },
       {
         id: 'random-uuid-4',
         description: 'Freela',
-        type: 'INCOME' as const,
+        type: TransactionTypes.INCOME,
         date: '2023-09-07T00:00:00.000Z',
         value: 500,
       },
