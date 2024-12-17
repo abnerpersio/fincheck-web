@@ -32,4 +32,9 @@ export class BankAccountsService {
     const url = endpoints.bankAccount.update.replace(':id', accountId);
     return this.httpService.put(url, payload);
   }
+
+  delete(accountId: string) {
+    const url = endpoints.bankAccount.delete.replace(':id', accountId);
+    return this.httpService.delete(url);
+  }
 }

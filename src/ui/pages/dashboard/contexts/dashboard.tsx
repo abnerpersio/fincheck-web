@@ -9,7 +9,7 @@ type ContextValue = {
   onOpenNewAccountModal: () => void;
   onCloseNewAccountModal: () => void;
   isEditAccountModalVisible: boolean;
-  acountBeingEdited: BankAccount | null;
+  accountBeingEdited: BankAccount | null;
   onOpenEditAccountModal: (bankAccount: BankAccount) => void;
   onCloseEditAccountModal: () => void;
   isNewTransactionModalVisible: boolean;
@@ -33,7 +33,7 @@ export function DashboardProvider(props: Props) {
   const [isNewAccountModalVisible, setIsNewAccountModalVisible] = useState(false);
 
   const [isEditAccountModalVisible, setIsEditAccountModalVisible] = useState(false);
-  const [acountBeingEdited, setAccountBeingEdited] = useState<BankAccount | null>(null);
+  const [accountBeingEdited, setAccountBeingEdited] = useState<BankAccount | null>(null);
 
   const [isNewTransactionModalVisible, setIsNewTransactionModalVisible] = useState(false);
 
@@ -80,7 +80,7 @@ export function DashboardProvider(props: Props) {
         onOpenNewAccountModal: handleOpenNewAccountModal,
         onCloseNewAccountModal: handleCloseNewAccountModal,
         isEditAccountModalVisible,
-        acountBeingEdited,
+        accountBeingEdited,
         onOpenEditAccountModal: handleOpenEditAccountModal,
         onCloseEditAccountModal: handleCloseEditAccountModal,
         isNewTransactionModalVisible,

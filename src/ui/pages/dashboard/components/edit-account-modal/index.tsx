@@ -2,7 +2,9 @@ import { Controller } from 'react-hook-form';
 import { BankAccountTypes } from '../../../../../app/entities/bank-account';
 import { Button } from '../../../../components/button';
 import { ColorsInput } from '../../../../components/colors-input';
+import { ConfirmDeleteModal } from '../../../../components/confirm-delete-modal';
 import { CurrencyInput } from '../../../../components/currency-input';
+import { TrashIcon } from '../../../../components/icons/trash';
 import { Input } from '../../../../components/input';
 import { Modal } from '../../../../components/modal';
 import { Select } from '../../../../components/select';
@@ -11,18 +13,35 @@ import { useEditAccountModalController } from './hooks/use-edit-account-modal-co
 export function EditAccountModal() {
   const {
     isEditAccountModalVisible,
-    acountBeingEdited,
+    isDeleteModalVisible,
+    accountBeingEdited,
+    onOpenDeleteModal,
     onCloseEditAccountModal,
+    onConfirmDelete,
     errors,
     handleSubmit,
-    isLoading,
+    isUpdating,
+    isDeleting,
     isValid,
     register,
     control,
   } = useEditAccountModalController();
 
-  if (!acountBeingEdited) {
+  if (!accountBeingEdited) {
     return null;
+  }
+
+  if (isDeleteModalVisible) {
+    return (
+      <ConfirmDeleteModal
+        visible
+        isLoading={isDeleting}
+        onConfirm={onConfirmDelete}
+        onClose={onCloseEditAccountModal}
+        title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
+      />
+    );
   }
 
   return (
@@ -30,6 +49,11 @@ export function EditAccountModal() {
       title="Editar Conta"
       visible={isEditAccountModalVisible}
       onClose={onCloseEditAccountModal}
+      rightAction={
+        <button className="text-red-900" onClick={onOpenDeleteModal}>
+          <TrashIcon className="w-6 h-6" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <Controller
@@ -96,7 +120,7 @@ export function EditAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isLoading}>
+        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isUpdating}>
           Salvar
         </Button>
       </form>

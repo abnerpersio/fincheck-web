@@ -6,5 +6,6 @@ export const endpoints = {
     list: '/bank-accounts',
     create: '/bank-accounts',
     update: '/bank-accounts/:id',
+    delete: '/bank-accounts/:id',
   },
 };

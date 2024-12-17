@@ -4,10 +4,11 @@ import { LoadingSpinner } from '../loading-spinner';
 
 type Props = ComponentProps<'button'> & {
   isLoading?: boolean;
+  variant?: 'default' | 'danger' | 'ghost';
 };
 
 export function Button(props: Props) {
-  const { children, className, disabled, isLoading, ...restProps } = props;
+  const { children, className, disabled, isLoading, variant = 'default', ...restProps } = props;
 
   return (
     <button
@@ -15,8 +16,11 @@ export function Button(props: Props) {
       disabled={disabled || isLoading}
       className={cn(
         'w-full flex justify-center items-center px-6 h-12 rounded-2xl transition-all',
-        'bg-teal-900 text-white font-medium',
-        'hover:bg-teal-800 active:bg-teal-900',
+        'text-white font-medium',
+        variant === 'default' && 'bg-teal-900 hover:bg-teal-800 active:bg-teal-900',
+        variant === 'danger' && 'bg-red-900 hover:bg-red-800 active:bg-red-900',
+        variant === 'ghost' &&
+          'border border-gray-800 bg-transparent text-gray-800 hover:bg-gray-800/5 active:bg-gray-800/5',
         'disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed',
         className,
       )}
