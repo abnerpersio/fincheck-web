@@ -1,5 +1,5 @@
 import { PlusIcon } from '@radix-ui/react-icons';
-import { TransactionTypes } from '../../../../../app/types/transaction';
+import { TransactionTypes } from '../../../../../app/entities/transaction';
 import { cn } from '../../../../../app/utils/class-names';
 import { DropdownMenu } from '../../../../components/dropdown-menu';
 import { BankAccountIcon } from '../../../../components/icons/bank-account';

@@ -37,15 +37,23 @@ export class HttpService {
     return this.axios.post<T>(url, data, config);
   }
 
-  delete(url: string, config?: AxiosRequestConfig) {
-    return this.axios.delete(url, config);
-  }
-
   patch<T = Record<string, unknown>>(
     url: string,
     data?: Record<string, unknown>,
     config?: AxiosRequestConfig,
   ) {
     return this.axios.patch<T>(url, data, config);
+  }
+
+  put<T = Record<string, unknown>>(
+    url: string,
+    data?: Record<string, unknown>,
+    config?: AxiosRequestConfig,
+  ) {
+    return this.axios.put<T>(url, data, config);
+  }
+
+  delete(url: string, config?: AxiosRequestConfig) {
+    return this.axios.delete(url, config);
   }
 }

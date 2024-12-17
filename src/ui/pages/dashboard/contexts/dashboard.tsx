@@ -1,5 +1,6 @@
 import { createContext, useCallback, useState } from 'react';
-import { TransactionType } from '../../../../app/types/transaction';
+import { BankAccount } from '../../../../app/entities/bank-account';
+import { TransactionType } from '../../../../app/entities/transaction';
 
 type ContextValue = {
   isCurrencyVisible: boolean;
@@ -7,6 +8,10 @@ type ContextValue = {
   isNewAccountModalVisible: boolean;
   onOpenNewAccountModal: () => void;
   onCloseNewAccountModal: () => void;
+  isEditAccountModalVisible: boolean;
+  acountBeingEdited: BankAccount | null;
+  onOpenEditAccountModal: (bankAccount: BankAccount) => void;
+  onCloseEditAccountModal: () => void;
   isNewTransactionModalVisible: boolean;
   onOpenNewTransactionModal: (type: TransactionType) => void;
   onCloseNewTransactionModal: () => void;
@@ -27,7 +32,11 @@ export function DashboardProvider(props: Props) {
 
   const [isNewAccountModalVisible, setIsNewAccountModalVisible] = useState(false);
 
+  const [isEditAccountModalVisible, setIsEditAccountModalVisible] = useState(false);
+  const [acountBeingEdited, setAccountBeingEdited] = useState<BankAccount | null>(null);
+
   const [isNewTransactionModalVisible, setIsNewTransactionModalVisible] = useState(false);
+
   const [newTransactionType, setNewTransactionType] = useState<TransactionType | null>(null);
 
   const handleToggleCurrencyVisibility = useCallback(() => {
@@ -40,6 +49,16 @@ export function DashboardProvider(props: Props) {
 
   const handleCloseNewAccountModal = useCallback(() => {
     setIsNewAccountModalVisible(false);
+  }, []);
+
+  const handleOpenEditAccountModal = useCallback((bankAccount: BankAccount) => {
+    setIsEditAccountModalVisible(true);
+    setAccountBeingEdited(bankAccount);
+  }, []);
+
+  const handleCloseEditAccountModal = useCallback(() => {
+    setIsEditAccountModalVisible(false);
+    setAccountBeingEdited(null);
   }, []);
 
   const handleOpenNewTransactionModal = useCallback((type: TransactionType) => {
@@ -60,6 +79,10 @@ export function DashboardProvider(props: Props) {
         isNewAccountModalVisible,
         onOpenNewAccountModal: handleOpenNewAccountModal,
         onCloseNewAccountModal: handleCloseNewAccountModal,
+        isEditAccountModalVisible,
+        acountBeingEdited,
+        onOpenEditAccountModal: handleOpenEditAccountModal,
+        onCloseEditAccountModal: handleCloseEditAccountModal,
         isNewTransactionModalVisible,
         newTransactionType,
         onOpenNewTransactionModal: handleOpenNewTransactionModal,

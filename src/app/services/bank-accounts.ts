@@ -1,15 +1,8 @@
 import { endpoints } from '../../infra/api';
-import { BankAccountType } from '../types/bank-account';
+import { BankAccount, BankAccountType } from '../entities/bank-account';
 import { HttpService } from './http-service';
 
-export type ListBankAccountsResult = {
-  id: string;
-  name: string;
-  initialBalance: number;
-  currentBalance: number;
-  type: BankAccountType;
-  color: string;
-}[];
+export type ListBankAccountsResult = BankAccount[];
 
 export type CreateBankAccountPayload = {
   name: string;
@@ -17,6 +10,8 @@ export type CreateBankAccountPayload = {
   type: BankAccountType;
   color: string;
 };
+
+export type UpdateBankAccountPayload = CreateBankAccountPayload & {};
 
 export class BankAccountsService {
   private readonly httpService: HttpService;
@@ -31,5 +26,10 @@ export class BankAccountsService {
 
   create(payload: CreateBankAccountPayload) {
     return this.httpService.post(endpoints.bankAccount.create, payload);
+  }
+
+  update(accountId: string, payload: UpdateBankAccountPayload) {
+    const url = endpoints.bankAccount.update.replace(':id', accountId);
+    return this.httpService.put(url, payload);
   }
 }

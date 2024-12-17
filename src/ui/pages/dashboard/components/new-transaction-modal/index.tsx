@@ -1,5 +1,5 @@
-import { BankAccountTypes } from '../../../../../app/types/bank-account';
-import { TransactionTypes } from '../../../../../app/types/transaction';
+import { BankAccountTypes } from '../../../../../app/entities/bank-account';
+import { TransactionTypes } from '../../../../../app/entities/transaction';
 import { Button } from '../../../../components/button';
 import { CurrencyInput } from '../../../../components/currency-input';
 import { DatePickerInput } from '../../../../components/date-picker-input';

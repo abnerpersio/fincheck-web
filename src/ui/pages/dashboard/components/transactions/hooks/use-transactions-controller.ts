@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TransactionTypes } from '../../../../../../app/types/transaction';
+import { TransactionTypes } from '../../../../../../app/entities/transaction';
 
 export function useTransactionsController() {
   const [isFiltersModalVisible, setIsFiltersModalVisible] = useState(false);

@@ -12,6 +12,7 @@ export function DropdownMenuItem(props: Props) {
 
   return (
     <RdxDropdownMenu.Item
+      role="button"
       onSelect={onSelect}
       className={cn(
         'min-h-[40px] flex items-center py-2 px-4 text-sm text-gray-800',

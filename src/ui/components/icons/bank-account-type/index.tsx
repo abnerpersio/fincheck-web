@@ -1,4 +1,4 @@
-import { BankAccountType } from '../../../../app/types/bank-account';
+import { BankAccountType } from '../../../../app/entities/bank-account';
 import { CashIcon } from './cash';
 import { CheckingIcon } from './checking';
 import { InvestmentIcon } from './investment';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function BankAccountTypeIcon(props: Props) {
-  const Icon = iconsMap[props.type];
+  const Icon = iconsMap[props.type] ?? iconsMap.CHECKING;
 
   return <Icon />;
 }

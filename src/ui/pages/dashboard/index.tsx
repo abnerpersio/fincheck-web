@@ -1,6 +1,7 @@
 import { Logo } from '../../components/icons/logo';
 import { UserProfileMenu } from '../../components/user-profile-menu';
 import { Accounts } from './components/accounts';
+import { EditAccountModal } from './components/edit-account-modal';
 import { Fab } from './components/fab';
 import { NewAccountModal } from './components/new-account-modal';
 import { NewTransactionModal } from './components/new-transaction-modal';
@@ -30,6 +31,8 @@ export function DashboardPage() {
         <Fab />
 
         <NewAccountModal />
+
+        <EditAccountModal />
 
         <NewTransactionModal />
       </div>

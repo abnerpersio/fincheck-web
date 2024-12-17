@@ -6,22 +6,31 @@ import { CurrencyInput } from '../../../../components/currency-input';
 import { Input } from '../../../../components/input';
 import { Modal } from '../../../../components/modal';
 import { Select } from '../../../../components/select';
-import { useNewAccountModalController } from './hooks/use-new-account-modal-controller';
+import { useEditAccountModalController } from './hooks/use-edit-account-modal-controller';
 
-export function NewAccountModal() {
+export function EditAccountModal() {
   const {
-    isNewAccountModalVisible,
-    onCloseNewAccountModal,
+    isEditAccountModalVisible,
+    acountBeingEdited,
+    onCloseEditAccountModal,
     errors,
     handleSubmit,
     isLoading,
     isValid,
     register,
     control,
-  } = useNewAccountModalController();
+  } = useEditAccountModalController();
+
+  if (!acountBeingEdited) {
+    return null;
+  }
 
   return (
-    <Modal title="Nova Conta" visible={isNewAccountModalVisible} onClose={onCloseNewAccountModal}>
+    <Modal
+      title="Editar Conta"
+      visible={isEditAccountModalVisible}
+      onClose={onCloseEditAccountModal}
+    >
       <form onSubmit={handleSubmit}>
         <Controller
           control={control}
@@ -88,7 +97,7 @@ export function NewAccountModal() {
         </div>
 
         <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isLoading}>
-          Criar
+          Salvar
         </Button>
       </form>
     </Modal>

@@ -1,4 +1,4 @@
-import { TransactionType } from '../../../../app/types/transaction';
+import { TransactionType } from '../../../../app/entities/transaction';
 import { ClothesCategoryIcon } from './expense/clothes';
 import { EducationCategoryIcon } from './expense/education';
 import { ExpenseCategoryIcon } from './expense/expense';

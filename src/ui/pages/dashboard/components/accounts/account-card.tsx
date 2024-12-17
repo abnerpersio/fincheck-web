@@ -1,22 +1,22 @@
-import { BankAccountType } from '../../../../../app/types/bank-account';
+import { BankAccount } from '../../../../../app/entities/bank-account';
 import { cn } from '../../../../../app/utils/class-names';
 import { formatCurrency } from '../../../../../app/utils/currency';
 import { BankAccountTypeIcon } from '../../../../components/icons/bank-account-type';
 import { useDashboard } from '../../hooks/use-dashboard';
 
 type Props = {
-  color: string;
-  name: string;
-  balance: number;
-  type: BankAccountType;
+  account: BankAccount;
 };
 
 export function AccountCard(props: Props) {
-  const { color, name, balance, type } = props;
-  const { isCurrencyVisible } = useDashboard();
+  const { account } = props;
+  const { color, name, currentBalance, type } = account;
+  const { isCurrencyVisible, onOpenEditAccountModal } = useDashboard();
 
   return (
     <div
+      role="button"
+      onClick={() => onOpenEditAccountModal(account)}
       className={cn(
         'h-[200px] p-4 bg-white rounded-2xl',
         'flex flex-col justify-between border-b-4 border-teal-950',
@@ -36,7 +36,7 @@ export function AccountCard(props: Props) {
             !isCurrencyVisible && 'blur-sm',
           )}
         >
-          {formatCurrency(balance)}
+          {formatCurrency(currentBalance)}
         </span>
 
         <small className="text-gray-600 text-sm">Saldo atual</small>

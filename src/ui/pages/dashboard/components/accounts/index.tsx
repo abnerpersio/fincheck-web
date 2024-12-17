@@ -15,7 +15,7 @@ import { SliderNavigation } from './slider-navigation';
 export function Accounts() {
   const { isBeginning, isEnd, onSwipe } = useAccountsSlider();
   const { isCurrencyVisible, onToggleCurrencyVisibility, onOpenNewAccountModal } = useDashboard();
-  const { accounts, isLoading } = useAccountsController();
+  const { accounts, totalBalance, isLoading } = useAccountsController();
 
   const isMedium = useMediaQuery(500);
   const hasAccounts = !!accounts.length;
@@ -35,7 +35,7 @@ export function Accounts() {
 
             <div className="flex items-center gap-2">
               <strong className={cn('text-2xl tracking-[-1px]', !isCurrencyVisible && 'blur-md')}>
-                {formatCurrency(100)}
+                {formatCurrency(totalBalance)}
               </strong>
 
               <button
@@ -93,12 +93,7 @@ export function Accounts() {
 
                   {accounts.map((account) => (
                     <SwiperSlide key={account.id}>
-                      <AccountCard
-                        color={account.color}
-                        name={account.name}
-                        balance={account.currentBalance}
-                        type={account.type}
-                      />
+                      <AccountCard account={account} />
                     </SwiperSlide>
                   ))}
                 </Swiper>

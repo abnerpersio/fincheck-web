@@ -5,5 +5,6 @@ export const endpoints = {
   bankAccount: {
     list: '/bank-accounts',
     create: '/bank-accounts',
+    update: '/bank-accounts/:id',
   },
 };

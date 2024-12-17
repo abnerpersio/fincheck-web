@@ -2,8 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { BankAccountTypes } from '../../../../../../app/entities/bank-account';
 import { useCreateBankAccount } from '../../../../../../app/hooks/use-create-bank-account';
-import { BankAccountTypes } from '../../../../../../app/types/bank-account';
 import { currencyToNumber } from '../../../../../../app/utils/currency';
 import { useDashboard } from '../../../hooks/use-dashboard';
 
@@ -59,6 +59,6 @@ export function useNewAccountModalController() {
     control,
     errors,
     isValid,
-    isPending,
+    isLoading: isPending,
   };
 }
