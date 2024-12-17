@@ -29,7 +29,7 @@ const iconsMap = {
 
 type Props = {
   type: TransactionType;
-  category?: keyof typeof iconsMap.INCOME | keyof typeof iconsMap.EXPENSE;
+  category?: string;
 };
 
 export function CategoryIcon(props: Props) {

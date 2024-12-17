@@ -17,6 +17,6 @@ export function useCreateBankAccount(options?: Options) {
       queryClient.invalidateQueries({ queryKey: ['bank-accounts'] });
       options?.onSuccess?.();
     },
-    onError: () => toast.success('Não foi possível criar a conta!'),
+    onError: () => toast.error('Não foi possível criar a conta!'),
   });
 }

@@ -2,8 +2,6 @@ import { endpoints } from '../../infra/api';
 import { BankAccount, BankAccountType } from '../entities/bank-account';
 import { HttpService } from './http-service';
 
-export type ListBankAccountsResult = BankAccount[];
-
 export type CreateBankAccountPayload = {
   name: string;
   initialBalance: number;
@@ -21,7 +19,7 @@ export class BankAccountsService {
   }
 
   list() {
-    return this.httpService.get<ListBankAccountsResult>(endpoints.bankAccount.list);
+    return this.httpService.get<BankAccount[]>(endpoints.bankAccount.list);
   }
 
   create(payload: CreateBankAccountPayload) {

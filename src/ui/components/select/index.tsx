@@ -1,6 +1,8 @@
 import { ChevronDownIcon, ChevronUpIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import * as RdxSelect from '@radix-ui/react-select';
+import React from 'react';
 import { cn } from '../../../app/utils/class-names';
+import { LoadingSpinner } from '../loading-spinner';
 
 type Props = {
   className?: string;
@@ -11,15 +13,20 @@ type Props = {
     label: string;
   }[];
   value?: string;
+  isLoading?: boolean;
   onChange?: (value: string) => void;
 };
 
 export function Select(props: Props) {
-  const { options, value, onChange, className, label, error } = props;
+  const { options, value, isLoading, onChange, className, label, error } = props;
 
   const handleSelect = (value: string) => {
     onChange?.(value);
   };
+
+  if (isLoading) {
+    return <LoadingSpinner className="w-6 h-6" />;
+  }
 
   return (
     <div>

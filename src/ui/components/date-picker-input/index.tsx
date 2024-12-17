@@ -1,5 +1,5 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { cn } from '../../../app/utils/class-names';
 import { formatDate } from '../../../app/utils/date';
 import { DatePicker } from '../date-picker';
@@ -7,14 +7,16 @@ import { Popover } from '../popover';
 
 type Props = {
   className?: string;
+  value?: Date;
+  onChange: (date: Date) => void;
   error?: string;
   label?: string;
 };
 
 export function DatePickerInput(props: Props) {
-  const { className, error, label } = props;
+  const { className, error, label, value, onChange } = props;
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const selectedDate = useMemo(() => value ?? new Date(), [value]);
 
   return (
     <div className="w-full">
@@ -45,7 +47,7 @@ export function DatePickerInput(props: Props) {
         </Popover.Trigger>
 
         <Popover.Content>
-          <DatePicker value={selectedDate} onChange={(date) => setSelectedDate(date)} />
+          <DatePicker value={selectedDate} onChange={(date) => onChange(date)} />
         </Popover.Content>
       </Popover>
 

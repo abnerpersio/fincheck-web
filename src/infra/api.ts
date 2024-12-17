@@ -8,4 +8,13 @@ export const endpoints = {
     update: '/bank-accounts/:id',
     delete: '/bank-accounts/:id',
   },
+  transaction: {
+    list: '/transactions',
+    create: '/transactions',
+    update: '/transactions/:id',
+    delete: '/transactions/:id',
+  },
+  category: {
+    list: '/categories',
+  },
 };

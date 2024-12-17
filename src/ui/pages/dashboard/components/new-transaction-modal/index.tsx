@@ -1,4 +1,4 @@
-import { BankAccountTypes } from '../../../../../app/entities/bank-account';
+import { Controller } from 'react-hook-form';
 import { TransactionTypes } from '../../../../../app/entities/transaction';
 import { Button } from '../../../../components/button';
 import { CurrencyInput } from '../../../../components/currency-input';
@@ -9,8 +9,21 @@ import { Select } from '../../../../components/select';
 import { useNewTransactionModalController } from './hooks/use-new-transaction-modal-controller';
 
 export function NewTransactionModal() {
-  const { isNewTransactionModalVisible, newTransactionType, onCloseNewTransactionModal } =
-    useNewTransactionModalController();
+  const {
+    isNewTransactionModalVisible,
+    newTransactionType,
+    onCloseNewTransactionModal,
+    errors,
+    handleSubmit,
+    isLoading,
+    isValid,
+    register,
+    control,
+    accounts,
+    isLoadingAccounts,
+    filteredCategories,
+    isLoadingCategories,
+  } = useNewTransactionModalController();
 
   const isExpense = newTransactionType === TransactionTypes.EXPENSE;
 
@@ -20,56 +33,80 @@ export function NewTransactionModal() {
       visible={isNewTransactionModalVisible}
       onClose={onCloseNewTransactionModal}
     >
-      <form>
-        <CurrencyInput label={`Valor ${isExpense ? 'da despesa' : 'da receita'}`} />
+      <form onSubmit={handleSubmit}>
+        <Controller
+          control={control}
+          name="value"
+          defaultValue={0}
+          render={({ field: { value, onChange } }) => (
+            <CurrencyInput
+              label={`Valor ${isExpense ? 'da despesa' : 'da receita'}`}
+              value={value}
+              onChange={onChange}
+              error={errors.value?.message}
+            />
+          )}
+        />
 
         <div className="flex flex-col gap-4 mt-10">
           <Input
             type="text"
-            name="name"
+            {...register('description')}
             label={isExpense ? 'Nome da Despesa' : 'Nome da Receita'}
           />
 
-          <Select
-            label="Categoria"
-            options={[
-              {
-                value: BankAccountTypes.CHECKING,
-                label: 'Conta Corrente',
-              },
-              {
-                value: BankAccountTypes.INVESTMENT,
-                label: 'Investimentos',
-              },
-              {
-                value: BankAccountTypes.CASH,
-                label: 'Dinheiro Físico',
-              },
-            ]}
+          <Controller
+            control={control}
+            name="categoryId"
+            render={({ field: { value, onChange } }) => (
+              <Select
+                label="Categoria"
+                value={value}
+                onChange={onChange}
+                isLoading={isLoadingCategories}
+                error={errors.categoryId?.message}
+                options={filteredCategories.map((category) => ({
+                  value: category.id,
+                  label: category.name,
+                }))}
+              />
+            )}
           />
 
-          <Select
-            label={isExpense ? 'Pagar com' : 'Receber com'}
-            options={[
-              {
-                value: BankAccountTypes.CHECKING,
-                label: 'Conta Corrente',
-              },
-              {
-                value: BankAccountTypes.INVESTMENT,
-                label: 'Investimentos',
-              },
-              {
-                value: BankAccountTypes.CASH,
-                label: 'Dinheiro Físico',
-              },
-            ]}
+          <Controller
+            control={control}
+            name="bankAccountId"
+            render={({ field: { value, onChange } }) => (
+              <Select
+                label={isExpense ? 'Pagar com' : 'Receber com'}
+                value={value}
+                onChange={onChange}
+                isLoading={isLoadingAccounts}
+                error={errors.bankAccountId?.message}
+                options={accounts.map((account) => ({
+                  value: account.id,
+                  label: account.name,
+                }))}
+              />
+            )}
           />
 
-          <DatePickerInput label="Data" />
+          <Controller
+            control={control}
+            name="date"
+            defaultValue={new Date()}
+            render={({ field: { value, onChange } }) => (
+              <DatePickerInput
+                value={value}
+                onChange={onChange}
+                error={errors?.date?.message}
+                label="Data"
+              />
+            )}
+          />
         </div>
 
-        <Button type="submit" className="mt-6">
+        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isLoading}>
           Criar
         </Button>
       </form>
