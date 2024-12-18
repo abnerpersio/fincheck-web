@@ -18,6 +18,7 @@ export function useCreateTransaction(options?: Options) {
         `${payload.type === TransactionTypes.EXPENSE ? 'Despesa' : 'Receita'} criada com sucesso!`,
       );
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bank-accounts'] });
       options?.onSuccess?.();
     },
     onError: (_, payload) =>

@@ -26,6 +26,7 @@ export function useUpdateTransaction(options?: Options) {
           : 'Receita atualizada com sucesso',
       );
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bank-accounts'] });
       options?.onSuccess?.();
     },
     onError: (_, { payload }) =>
