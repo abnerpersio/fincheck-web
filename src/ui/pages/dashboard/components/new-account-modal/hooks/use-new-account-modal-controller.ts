@@ -35,7 +35,7 @@ export function useNewAccountModalController() {
 
   const handleCloseModal = useCallback(() => {
     onCloseNewAccountModal();
-    reset();
+    reset({});
   }, [reset, onCloseNewAccountModal]);
 
   const { mutate, isPending } = useCreateBankAccount({
@@ -59,6 +59,6 @@ export function useNewAccountModalController() {
     control,
     errors,
     isValid,
-    isLoading: isPending,
+    isCreating: isPending,
   };
 }

@@ -28,11 +28,7 @@ const transformInitialValues = (accountBeingEdited: BankAccount | null): Partial
 });
 
 export function useEditAccountModalController() {
-  const {
-    isEditAccountModalVisible,
-    accountBeingEdited: accountBeingEdited,
-    onCloseEditAccountModal,
-  } = useDashboard();
+  const { isEditAccountModalVisible, accountBeingEdited, onCloseEditAccountModal } = useDashboard();
 
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
@@ -58,7 +54,7 @@ export function useEditAccountModalController() {
 
   const handleCloseModal = useCallback(() => {
     onCloseEditAccountModal();
-    reset();
+    reset({});
   }, [reset, onCloseEditAccountModal]);
 
   const { mutate: mutateUpdate, isPending: isPendingUpdate } = useUpdateBankAccount({

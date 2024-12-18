@@ -6,16 +6,17 @@ import { DatePickerInput } from '../../../../components/date-picker-input';
 import { Input } from '../../../../components/input';
 import { Modal } from '../../../../components/modal';
 import { Select } from '../../../../components/select';
-import { useNewTransactionModalController } from './hooks/use-new-transaction-modal-controller';
+import { useEditTransactionModalController } from './hooks/use-edit-transaction-modal-controller';
 
-export function NewTransactionModal() {
+export function EditTransactionModal() {
   const {
-    isNewTransactionModalVisible,
-    newTransactionType,
-    onCloseNewTransactionModal,
+    isEditTransactionModalVisible,
+    onCloseEditTransactionModal,
+    transactionBeingEdited,
     errors,
     handleSubmit,
-    isCreating,
+    isUpdating,
+    isDeleting,
     isValid,
     register,
     control,
@@ -23,16 +24,20 @@ export function NewTransactionModal() {
     isLoadingAccounts,
     filteredCategories,
     isLoadingCategories,
-  } = useNewTransactionModalController();
+  } = useEditTransactionModalController();
 
-  const isExpense = newTransactionType === TransactionTypes.EXPENSE;
+  if (!transactionBeingEdited) {
+    return null;
+  }
+
+  const isExpense = transactionBeingEdited.type === TransactionTypes.EXPENSE;
 
   return (
     <Modal
-      title={isExpense ? 'Nova Despesa' : 'Nova Receita'}
-      visible={isNewTransactionModalVisible}
-      onClose={onCloseNewTransactionModal}
-      disabledClose={isCreating}
+      title={isExpense ? 'Editar Despesa' : 'Editar Receita'}
+      visible={isEditTransactionModalVisible}
+      onClose={onCloseEditTransactionModal}
+      disabledClose={isUpdating || isDeleting}
     >
       <form onSubmit={handleSubmit}>
         <Controller
@@ -107,8 +112,8 @@ export function NewTransactionModal() {
           />
         </div>
 
-        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isCreating}>
-          Criar
+        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isUpdating}>
+          Salvar
         </Button>
       </form>
     </Modal>

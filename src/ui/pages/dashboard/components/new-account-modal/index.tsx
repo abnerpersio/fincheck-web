@@ -14,14 +14,19 @@ export function NewAccountModal() {
     onCloseNewAccountModal,
     errors,
     handleSubmit,
-    isLoading,
+    isCreating,
     isValid,
     register,
     control,
   } = useNewAccountModalController();
 
   return (
-    <Modal title="Nova Conta" visible={isNewAccountModalVisible} onClose={onCloseNewAccountModal}>
+    <Modal
+      title="Nova Conta"
+      visible={isNewAccountModalVisible}
+      onClose={onCloseNewAccountModal}
+      disabledClose={isCreating}
+    >
       <form onSubmit={handleSubmit}>
         <Controller
           control={control}
@@ -87,7 +92,7 @@ export function NewAccountModal() {
           />
         </div>
 
-        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isLoading}>
+        <Button type="submit" className="mt-6" disabled={!isValid} isLoading={isCreating}>
           Criar
         </Button>
       </form>

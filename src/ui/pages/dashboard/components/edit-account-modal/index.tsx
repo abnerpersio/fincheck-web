@@ -49,8 +49,9 @@ export function EditAccountModal() {
       title="Editar Conta"
       visible={isEditAccountModalVisible}
       onClose={onCloseEditAccountModal}
+      disabledClose={isUpdating || isDeleting}
       rightAction={
-        <button className="text-red-900" onClick={onOpenDeleteModal}>
+        <button className="text-red-900" onClick={onOpenDeleteModal} disabled={isUpdating}>
           <TrashIcon className="w-6 h-6" />
         </button>
       }

@@ -9,14 +9,20 @@ type Props = {
   rightAction?: React.ReactNode;
   contentClassName?: string;
   title: string;
+  disabledClose?: boolean;
   onClose?: () => void;
 };
 
 export function Modal(props: Props) {
-  const { visible, children, title, rightAction, contentClassName, onClose } = props;
+  const { visible, children, title, rightAction, contentClassName, disabledClose, onClose } = props;
+
+  const handleClose = () => {
+    if (disabledClose) return;
+    onClose?.();
+  };
 
   return (
-    <RdxDialog.Root open={visible} onOpenChange={onClose}>
+    <RdxDialog.Root open={visible} onOpenChange={handleClose}>
       <RdxDialog.Portal>
         <RdxDialog.Overlay
           className={cn(
@@ -38,7 +44,7 @@ export function Modal(props: Props) {
             <button
               className="w-12 h-12 flex items-center justify-center"
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
             >
               <Cross2Icon className="w-6 h-6" />
             </button>

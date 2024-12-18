@@ -35,7 +35,7 @@ export function useNewTransactionModalController() {
 
   const handleCloseModal = useCallback(() => {
     onCloseNewTransactionModal();
-    reset();
+    reset({});
   }, [reset, onCloseNewTransactionModal]);
 
   const { mutate, isPending } = useCreateTransaction({
@@ -70,7 +70,7 @@ export function useNewTransactionModalController() {
     control,
     errors,
     isValid,
-    isLoading: isPending,
+    isCreating: isPending,
     accounts,
     filteredCategories,
     isLoadingAccounts,

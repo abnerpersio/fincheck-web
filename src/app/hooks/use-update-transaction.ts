@@ -1,0 +1,38 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { TransactionTypes } from '../entities/transaction';
+import { TransactionsService, UpdateTransactionPayload } from '../services/transactions';
+
+type Options = {
+  onSuccess?: () => void;
+};
+
+type Params = {
+  transactionId: string;
+  payload: UpdateTransactionPayload;
+};
+
+export function useUpdateTransaction(options?: Options) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['transaction', 'update'],
+    mutationFn: (params: Params) =>
+      new TransactionsService().update(params.transactionId, params.payload),
+    onSuccess: (_, { payload }) => {
+      toast.success(
+        `${
+          payload.type === TransactionTypes.EXPENSE ? 'Despesa' : 'Conta'
+        } atualizada com sucesso!`,
+      );
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      options?.onSuccess?.();
+    },
+    onError: (_, { payload }) =>
+      toast.error(
+        `Não foi possível atualizar a ${
+          payload.type === TransactionTypes.EXPENSE ? 'despesa' : 'conta'
+        }!`,
+      ),
+  });
+}

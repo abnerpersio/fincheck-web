@@ -6,6 +6,11 @@ export type Transaction = {
   date: string;
   categoryId: string;
   bankAccountId: string;
+  category: {
+    id: string;
+    name: string;
+    icon: string;
+  } | null;
 };
 
 export enum TransactionTypes {

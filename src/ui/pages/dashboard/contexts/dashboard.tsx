@@ -1,6 +1,6 @@
 import { createContext, useCallback, useState } from 'react';
 import { BankAccount } from '../../../../app/entities/bank-account';
-import { TransactionType } from '../../../../app/entities/transaction';
+import { Transaction, TransactionType } from '../../../../app/entities/transaction';
 
 type ContextValue = {
   isCurrencyVisible: boolean;
@@ -16,6 +16,10 @@ type ContextValue = {
   onOpenNewTransactionModal: (type: TransactionType) => void;
   onCloseNewTransactionModal: () => void;
   newTransactionType: TransactionType | null;
+  isEditTransactionModalVisible: boolean;
+  onOpenEditTransactionModal: (transaction: Transaction) => void;
+  onCloseEditTransactionModal: () => void;
+  transactionBeingEdited: Transaction | null;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -36,8 +40,10 @@ export function DashboardProvider(props: Props) {
   const [accountBeingEdited, setAccountBeingEdited] = useState<BankAccount | null>(null);
 
   const [isNewTransactionModalVisible, setIsNewTransactionModalVisible] = useState(false);
-
   const [newTransactionType, setNewTransactionType] = useState<TransactionType | null>(null);
+
+  const [isEditTransactionModalVisible, setIsEditTransactionModalVisible] = useState(false);
+  const [transactionBeingEdited, setTransactionBeingEdited] = useState<Transaction | null>(null);
 
   const handleToggleCurrencyVisibility = useCallback(() => {
     setIsCurrencyVisible((prevState) => !prevState);
@@ -71,6 +77,16 @@ export function DashboardProvider(props: Props) {
     setNewTransactionType(null);
   }, []);
 
+  const handleOpenEditTransactionModal = useCallback((transaction: Transaction) => {
+    setIsEditTransactionModalVisible(true);
+    setTransactionBeingEdited(transaction);
+  }, []);
+
+  const handleCloseEditTransactionModal = useCallback(() => {
+    setIsEditTransactionModalVisible(false);
+    setTransactionBeingEdited(null);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -87,6 +103,10 @@ export function DashboardProvider(props: Props) {
         newTransactionType,
         onOpenNewTransactionModal: handleOpenNewTransactionModal,
         onCloseNewTransactionModal: handleCloseNewTransactionModal,
+        isEditTransactionModalVisible,
+        transactionBeingEdited,
+        onOpenEditTransactionModal: handleOpenEditTransactionModal,
+        onCloseEditTransactionModal: handleCloseEditTransactionModal,
       }}
     >
       {children}

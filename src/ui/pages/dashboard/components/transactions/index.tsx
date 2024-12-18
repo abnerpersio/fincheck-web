@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MONTHS } from '../../../../../app/constants/constants';
+import { TransactionTypes } from '../../../../../app/entities/transaction';
 import { cn } from '../../../../../app/utils/class-names';
 import { formatCurrency } from '../../../../../app/utils/currency';
 import { formatDate } from '../../../../../app/utils/date';
@@ -16,7 +17,7 @@ import { SliderOption } from './slider-option';
 import { TransactionTypeDropdown } from './transaction-type-dropdown';
 
 export function Transactions() {
-  const { isCurrencyVisible } = useDashboard();
+  const { isCurrencyVisible, onOpenEditTransactionModal } = useDashboard();
   const { isBeginning, isEnd, onSwipe } = useTransactionsFiltersSlider();
 
   const {
@@ -25,17 +26,29 @@ export function Transactions() {
     onCloseFiltersModal,
     transactions,
     isLoading,
+    onChangeMonth,
+    onApplyFilters,
+    filters,
   } = useTransactionsController();
 
   const hasTransactions = !!transactions.length;
 
   return (
     <div className={cn('bg-gray-100 rounded-2xl w-full h-full flex flex-col', 'px-4 py-8 md:p-10')}>
-      <FiltersModal visible={isFiltersModalVisible} onClose={onCloseFiltersModal} />
+      <FiltersModal
+        defaultValues={filters}
+        onApplyFilters={onApplyFilters}
+        visible={isFiltersModalVisible}
+        onClose={onCloseFiltersModal}
+      />
 
       <header className="w-full">
         <div className="w-full flex items-center justify-between gap-4">
-          <TransactionTypeDropdown disabled={isLoading} />
+          <TransactionTypeDropdown
+            disabled={isLoading}
+            selected={filters.type}
+            onSelect={(type) => onApplyFilters({ type })}
+          />
 
           <button
             type="button"
@@ -49,7 +62,18 @@ export function Transactions() {
 
         <div className="mt-6">
           <div className="relative">
-            <Swiper slidesPerView={3} centeredSlides onSlideChange={onSwipe} enabled={!isLoading}>
+            <Swiper
+              slidesPerView={3}
+              centeredSlides
+              initialSlide={filters.month}
+              onSlideChange={(swiper) => {
+                onSwipe(swiper);
+
+                if (swiper.realIndex !== filters.month) {
+                  onChangeMonth(swiper.realIndex);
+                }
+              }}
+            >
               <SliderNavigation isBeginning={isBeginning} isEnd={isEnd} disabled={isLoading} />
 
               {MONTHS.map((month, index) => (
@@ -87,11 +111,13 @@ export function Transactions() {
         <div className="flex-1 mt-4 space-y-2 overflow-y-auto">
           {transactions.map((transaction) => (
             <div
+              role="button"
+              onClick={() => onOpenEditTransactionModal(transaction)}
               key={transaction.id}
               className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
             >
               <div className="flex-1 flex items-center gap-3">
-                <CategoryIcon type={transaction.type} />
+                <CategoryIcon type={transaction.type} category={transaction.category?.icon} />
 
                 <div>
                   <strong className="block font-bold tracking-[-0.5px]">
@@ -104,10 +130,11 @@ export function Transactions() {
               <span
                 className={cn(
                   'tracking-[-0.5px] font-medium',
-                  'text-red-800',
+                  transaction.type === TransactionTypes.EXPENSE ? 'text-red-800' : 'text-green-800',
                   !isCurrencyVisible && 'blur-sm',
                 )}
               >
+                {transaction.type === TransactionTypes.EXPENSE ? '-' : '+'}
                 {formatCurrency(transaction.value)}
               </span>
             </div>
