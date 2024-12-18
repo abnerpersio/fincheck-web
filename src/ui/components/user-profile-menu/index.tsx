@@ -4,7 +4,14 @@ import { cn } from '../../../app/utils/class-names';
 import { DropdownMenu } from '../dropdown-menu';
 
 export function UserProfileMenu() {
-  const { signout } = useAuth();
+  const { userDetails, signout } = useAuth();
+
+  const getUserName = () => {
+    if (!userDetails?.name) return '-';
+    const [firstName, lastName] = userDetails.name.split(' ');
+    if (!lastName) return firstName.slice(0, 1);
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+  };
 
   return (
     <DropdownMenu>
@@ -16,8 +23,7 @@ export function UserProfileMenu() {
           )}
         >
           <span className="text-sm tracking-[-0.5px] text-teal-900 font-medium">
-            {/* TODO: */}
-            AB
+            {getUserName().toUpperCase()}
           </span>
         </div>
       </DropdownMenu.Trigger>
