@@ -21,18 +21,18 @@ export function useUpdateTransaction(options?: Options) {
       new TransactionsService().update(params.transactionId, params.payload),
     onSuccess: (_, { payload }) => {
       toast.success(
-        `${
-          payload.type === TransactionTypes.EXPENSE ? 'Despesa' : 'Conta'
-        } atualizada com sucesso!`,
+        payload.type === TransactionTypes.EXPENSE
+          ? 'Despesa atualizada com sucesso'
+          : 'Receita atualizada com sucesso',
       );
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       options?.onSuccess?.();
     },
     onError: (_, { payload }) =>
       toast.error(
-        `Não foi possível atualizar a ${
-          payload.type === TransactionTypes.EXPENSE ? 'despesa' : 'conta'
-        }!`,
+        payload.type === TransactionTypes.EXPENSE
+          ? 'Não foi possível atualizar a despesa'
+          : 'Não foi possível atualizar a receita',
       ),
   });
 }

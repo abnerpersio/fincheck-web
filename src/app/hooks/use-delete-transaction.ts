@@ -13,10 +13,10 @@ export function useDeleteTransaction(options?: Options) {
     mutationKey: ['transaction', 'delete'],
     mutationFn: (accountId: string) => new TransactionsService().delete(accountId),
     onSuccess: () => {
-      toast.success('Transação removida com sucesso!');
+      toast.success('Transação excluida com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       options?.onSuccess?.();
     },
-    onError: () => toast.error('Não foi possível remover a transação!'),
+    onError: () => toast.error('Não foi possível excluir a transação!'),
   });
 }

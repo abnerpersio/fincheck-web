@@ -16,6 +16,7 @@ export function EditAccountModal() {
     isDeleteModalVisible,
     accountBeingEdited,
     onOpenDeleteModal,
+    onCloseDeleteModal,
     onCloseEditAccountModal,
     onConfirmDelete,
     errors,
@@ -37,7 +38,7 @@ export function EditAccountModal() {
         visible
         isLoading={isDeleting}
         onConfirm={onConfirmDelete}
-        onClose={onCloseEditAccountModal}
+        onClose={onCloseDeleteModal}
         title="Tem certeza que deseja excluir esta conta?"
         description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
       />

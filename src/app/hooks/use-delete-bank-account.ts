@@ -13,10 +13,10 @@ export function useDeleteBankAccount(options?: Options) {
     mutationKey: ['bank-account', 'delete'],
     mutationFn: (accountId: string) => new BankAccountsService().delete(accountId),
     onSuccess: () => {
-      toast.success('Conta removida com sucesso!');
+      toast.success('Conta excluida com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['bank-accounts'] });
       options?.onSuccess?.();
     },
-    onError: () => toast.error('Não foi possível remover a conta!'),
+    onError: () => toast.error('Não foi possível excluir a conta!'),
   });
 }

@@ -1,8 +1,10 @@
 import { Controller } from 'react-hook-form';
 import { TransactionTypes } from '../../../../../app/entities/transaction';
 import { Button } from '../../../../components/button';
+import { ConfirmDeleteModal } from '../../../../components/confirm-delete-modal';
 import { CurrencyInput } from '../../../../components/currency-input';
 import { DatePickerInput } from '../../../../components/date-picker-input';
+import { TrashIcon } from '../../../../components/icons/trash';
 import { Input } from '../../../../components/input';
 import { Modal } from '../../../../components/modal';
 import { Select } from '../../../../components/select';
@@ -11,6 +13,10 @@ import { useEditTransactionModalController } from './hooks/use-edit-transaction-
 export function EditTransactionModal() {
   const {
     isEditTransactionModalVisible,
+    isDeleteModalVisible,
+    onCloseDeleteModal,
+    onConfirmDelete,
+    onOpenDeleteModal,
     onCloseEditTransactionModal,
     transactionBeingEdited,
     errors,
@@ -32,12 +38,29 @@ export function EditTransactionModal() {
 
   const isExpense = transactionBeingEdited.type === TransactionTypes.EXPENSE;
 
+  if (isDeleteModalVisible) {
+    return (
+      <ConfirmDeleteModal
+        visible
+        isLoading={isDeleting}
+        onConfirm={onConfirmDelete}
+        onClose={onCloseDeleteModal}
+        title={`Tem certeza que deseja excluir esta ${isExpense ? 'despesa' : 'receita'}?`}
+      />
+    );
+  }
+
   return (
     <Modal
       title={isExpense ? 'Editar Despesa' : 'Editar Receita'}
       visible={isEditTransactionModalVisible}
       onClose={onCloseEditTransactionModal}
       disabledClose={isUpdating || isDeleting}
+      rightAction={
+        <button className="text-red-900" onClick={onOpenDeleteModal} disabled={isUpdating}>
+          <TrashIcon className="w-6 h-6" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <Controller
